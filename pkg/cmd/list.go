@@ -11,6 +11,7 @@ import (
 func newListCmd() *cobra.Command {
 	var (
 		repository string
+		perPage    int
 	)
 
 	listCmd := &cobra.Command{
@@ -32,7 +33,7 @@ func newListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			comments, err := client.List(ctx, sha)
+			comments, err := client.List(ctx, sha, perPage)
 			if err != nil {
 				return err
 			}
@@ -42,5 +43,6 @@ func newListCmd() *cobra.Command {
 	}
 
 	listCmd.Flags().StringVarP(&repository, "repo", "R", "", "Select another repository using the OWNER/REPO format")
+	listCmd.Flags().IntVarP(&perPage, "per-page", "", 30, "The number of results per page (default 30, max 100)")
 	return listCmd
 }

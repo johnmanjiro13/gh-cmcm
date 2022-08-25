@@ -9,11 +9,11 @@ import (
 	"github.com/google/go-github/v47/github"
 )
 
-func (cli *Client) List(ctx context.Context, sha string) (string, error) {
+func (cli *Client) List(ctx context.Context, sha string, perPage int) (string, error) {
 	var page int
 	var comments []*Comment
 	for {
-		cmt, res, err := cli.Repositories.ListCommitComments(ctx, cli.owner, cli.repo, sha, &github.ListOptions{Page: page})
+		cmt, res, err := cli.Repositories.ListCommitComments(ctx, cli.owner, cli.repo, sha, &github.ListOptions{PerPage: perPage, Page: page})
 		if err != nil {
 			return "", fmt.Errorf("failed to request: %w", err)
 		}
