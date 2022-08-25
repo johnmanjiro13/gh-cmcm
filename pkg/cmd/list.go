@@ -23,7 +23,6 @@ func newListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			sha := args[0]
 
 			ctx := context.Background()
 			client, err := comment.NewClient(ctx, &comment.Config{
@@ -33,6 +32,8 @@ func newListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
+
+			sha := args[0]
 			comments, err := client.List(ctx, sha, perPage)
 			if err != nil {
 				return err
