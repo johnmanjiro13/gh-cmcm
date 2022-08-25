@@ -11,7 +11,7 @@ func (c *Client) List(ctx context.Context, sha string) ([]*Comment, error) {
 	var page int
 	var comments []*Comment
 	for {
-		cmt, res, err := c.Repositories.ListCommitComments(ctx, c.owner, c.repo, sha, &github.ListOptions{PerPage: 1, Page: page})
+		cmt, res, err := c.Repositories.ListCommitComments(ctx, c.owner, c.repo, sha, &github.ListOptions{Page: page})
 		if err != nil {
 			return nil, fmt.Errorf("failed to request: %w", err)
 		}

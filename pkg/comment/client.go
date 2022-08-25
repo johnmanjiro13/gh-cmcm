@@ -24,7 +24,7 @@ type Config struct {
 func NewClient(ctx context.Context, cfg *Config) (*Client, error) {
 	token := os.Getenv("GITHUB_TOKEN")
 	if token == "" {
-		return nil, errors.New("github token is missing")
+		return nil, errors.New("github token is missing. please use GITHUB_TOKEN environment variable")
 	}
 	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: token})
 	tc := oauth2.NewClient(ctx, ts)
