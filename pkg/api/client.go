@@ -56,7 +56,7 @@ func (cli *Client) GetComment(ctx context.Context, id int64) (*comment.Comment, 
 		return nil, fmt.Errorf("failed to request: %w", err)
 	}
 	if res.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("error response: %d", res.StatusCode)
+		return nil, fmt.Errorf("%w: %d", ErrStatusCode, res.StatusCode)
 	}
 
 	return parseComment(cmt), nil
@@ -73,7 +73,7 @@ func (cli *Client) CreateComment(ctx context.Context, sha, body string, opt *com
 		return nil, fmt.Errorf("failed to request: %w", err)
 	}
 	if res.StatusCode != http.StatusCreated {
-		return nil, fmt.Errorf("error response: %d", res.StatusCode)
+		return nil, fmt.Errorf("%w: %d", ErrStatusCode, res.StatusCode)
 	}
 
 	return parseComment(cmt), nil
@@ -85,7 +85,7 @@ func (cli *Client) UpdateComment(ctx context.Context, id int64, body string) (*c
 		return nil, fmt.Errorf("failed to request: %w", err)
 	}
 	if res.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("error response: %d", res.StatusCode)
+		return nil, fmt.Errorf("%w: %d", ErrStatusCode, res.StatusCode)
 	}
 	return parseComment(cmt), nil
 }
@@ -99,7 +99,7 @@ func (cli *Client) ListComment(ctx context.Context, sha string, perPage int) ([]
 			return nil, fmt.Errorf("failed to request: %w", err)
 		}
 		if res.StatusCode != http.StatusOK {
-			return nil, fmt.Errorf("error response: %d", res.StatusCode)
+			return nil, fmt.Errorf("%w: %d", ErrStatusCode, res.StatusCode)
 		}
 
 		for _, c := range cmt {
@@ -121,7 +121,7 @@ func (cli *Client) DeleteComment(ctx context.Context, id int64) error {
 		return fmt.Errorf("failed to request: %w", err)
 	}
 	if res.StatusCode != http.StatusNoContent {
-		return fmt.Errorf("error response: %d", res.StatusCode)
+		return fmt.Errorf("%w: %d", ErrStatusCode, res.StatusCode)
 	}
 	return nil
 }
