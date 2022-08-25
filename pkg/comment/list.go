@@ -9,6 +9,13 @@ import (
 	"github.com/google/go-github/v47/github"
 )
 
+type Comment struct {
+	ID      int64  `json:"id"`
+	Body    string `json:"body"`
+	Author  string `json:"author"`
+	HTMLURL string `json:"html_url"`
+}
+
 func (cli *Client) List(ctx context.Context, sha string, perPage int) (string, error) {
 	var page int
 	var comments []*Comment
@@ -22,17 +29,7 @@ func (cli *Client) List(ctx context.Context, sha string, perPage int) (string, e
 		}
 
 		for _, c := range cmt {
-			cm := &Comment{}
-			if c.Body != nil {
-				cm.Body = *c.Body
-			}
-			if c.User != nil && c.User.Login != nil {
-				cm.Author = *c.User.Login
-			}
-			if c.HTMLURL != nil {
-				cm.HTMLURL = *c.HTMLURL
-			}
-			comments = append(comments, cm)
+			comments = append(comments, parseComment(c))
 		}
 
 		if res.NextPage < 1 {
@@ -45,4 +42,21 @@ func (cli *Client) List(ctx context.Context, sha string, perPage int) (string, e
 		return "", fmt.Errorf("failed to marshal: %w", err)
 	}
 	return string(result), nil
+}
+
+func parseComment(cmt *github.RepositoryComment) *Comment {
+	c := &Comment{}
+	if cmt.ID != nil {
+		c.ID = *cmt.ID
+	}
+	if cmt.Body != nil {
+		c.Body = *cmt.Body
+	}
+	if cmt.User != nil && cmt.User.Login != nil {
+		c.Author = *cmt.User.Login
+	}
+	if cmt.HTMLURL != nil {
+		c.HTMLURL = *cmt.HTMLURL
+	}
+	return c
 }
