@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strconv"
 
@@ -10,16 +11,20 @@ import (
 	"github.com/johnmanjiro13/gh-cmcm/pkg/comment"
 )
 
-func newGetCmd() *cobra.Command {
+func newUpdateCmd() (*cobra.Command, error) {
 	var (
 		repository string
+		body       string
 	)
 
-	getCmd := &cobra.Command{
-		Use:   "get <comment_id> [flags]",
-		Short: "Get a commit comment by id",
+	updateCmd := &cobra.Command{
+		Use:   "update <comment_id> [flags]",
+		Short: "Update a commit comment",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
+			if body == "" {
+				return errors.New("body must not be blank")
+			}
 			owner, repo, err := parseRepository(repository)
 			if err != nil {
 				return err
@@ -37,15 +42,21 @@ func newGetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			cmt, err := client.Get(ctx, id)
+			url, err := client.Update(ctx, id, body)
 			if err != nil {
 				return err
 			}
-			fmt.Println(cmt)
+			fmt.Println("Comment updated.")
+			fmt.Println("URL: ", url)
 			return nil
 		},
 	}
 
-	getCmd.Flags().StringVarP(&repository, "repo", "R", "", "Select another repository using the OWNER/REPO format")
-	return getCmd
+	updateCmd.Flags().StringVarP(&repository, "repo", "R", "", "Select another repository using the OWNER/REPO format")
+	updateCmd.Flags().StringVarP(&body, "body", "b", "", "Content of the commit comment")
+
+	if err := updateCmd.MarkFlagRequired("body"); err != nil {
+		return nil, err
+	}
+	return updateCmd, nil
 }

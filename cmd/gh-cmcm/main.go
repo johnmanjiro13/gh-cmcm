@@ -1,6 +1,3 @@
-/*
-Copyright © 2022 NAME HERE <EMAIL ADDRESS>
-*/
 package main
 
 import (
@@ -23,7 +20,11 @@ func main() {
 }
 
 func run() exitCode {
-	if err := cmd.New().Execute(); err != nil {
+	rootCmd, err := cmd.New()
+	if err != nil {
+		return exitStatusError
+	}
+	if err := rootCmd.Execute(); err != nil {
 		return exitStatusError
 	}
 	return exitStatusOK

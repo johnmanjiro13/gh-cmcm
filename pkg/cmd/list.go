@@ -15,7 +15,7 @@ func newListCmd() *cobra.Command {
 	)
 
 	listCmd := &cobra.Command{
-		Use:   "list <commit_sha>",
+		Use:   "list <commit_sha> [flags]",
 		Short: "List comments of a commit",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
