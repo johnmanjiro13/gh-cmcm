@@ -41,7 +41,7 @@ func newGetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			fmt.Printf("Author: %s, Body: %s\n", cmt.Author, cmt.Body)
+			fmt.Println(cmt)
 			return nil
 		},
 	}

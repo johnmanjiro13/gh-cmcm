@@ -2,25 +2,33 @@ package comment
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 )
 
-func (c *Client) Get(ctx context.Context, id int64) (*Comment, error) {
-	cmt, res, err := c.Repositories.GetComment(ctx, c.owner, c.repo, id)
+func (cli *Client) Get(ctx context.Context, id int64) (string, error) {
+	cmt, res, err := cli.Repositories.GetComment(ctx, cli.owner, cli.repo, id)
 	if err != nil {
-		return nil, fmt.Errorf("failed to request: %w", err)
+		return "", fmt.Errorf("failed to request: %w", err)
 	}
 	if res.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("error response: %d", res.StatusCode)
+		return "", fmt.Errorf("error response: %d", res.StatusCode)
 	}
 
-	result := &Comment{}
+	c := &Comment{}
 	if cmt.Body != nil {
-		result.Body = *cmt.Body
+		c.Body = *cmt.Body
 	}
 	if cmt.User != nil && cmt.User.Login != nil {
-		result.Author = *cmt.User.Login
+		c.Author = *cmt.User.Login
 	}
-	return result, nil
+	if cmt.HTMLURL != nil {
+		c.HTMLURL = *cmt.HTMLURL
+	}
+	result, err := json.Marshal(c)
+	if err != nil {
+		return "", fmt.Errorf("failed to marshal: %w", err)
+	}
+	return string(result), nil
 }

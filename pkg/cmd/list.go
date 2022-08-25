@@ -32,13 +32,11 @@ func newListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			cmt, err := client.List(ctx, sha)
+			comments, err := client.List(ctx, sha)
 			if err != nil {
 				return err
 			}
-			for _, c := range cmt {
-				fmt.Printf("Author: %s, Body: %s\n", c.Author, c.Body)
-			}
+			fmt.Println(comments)
 			return nil
 		},
 	}
