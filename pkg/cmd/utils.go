@@ -67,7 +67,13 @@ func printPlain(w io.Writer, cmt ...*comment.Comment) error {
 }
 
 func printJSON(w io.Writer, cmt ...*comment.Comment) error {
-	s, err := json.Marshal(cmt)
+	var s []byte
+	var err error
+	if len(cmt) == 1 {
+		s, err = json.Marshal(cmt[0])
+	} else {
+		s, err = json.Marshal(cmt)
+	}
 	if err != nil {
 		return fmt.Errorf("failed to marshal: %w", err)
 	}
