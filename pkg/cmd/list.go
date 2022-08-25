@@ -9,7 +9,7 @@ import (
 	"github.com/cli/go-gh"
 	"github.com/spf13/cobra"
 
-	"github.com/johnmanjiro13/gh-cmcm/comment"
+	"github.com/johnmanjiro13/gh-cmcm/pkg/comment"
 )
 
 func newListCmd() *cobra.Command {

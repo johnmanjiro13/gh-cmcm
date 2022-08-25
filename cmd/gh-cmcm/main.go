@@ -6,7 +6,7 @@ package main
 import (
 	"os"
 
-	"github.com/johnmanjiro13/gh-cmcm/cmd"
+	"github.com/johnmanjiro13/gh-cmcm/pkg/cmd"
 )
 
 type exitCode int
