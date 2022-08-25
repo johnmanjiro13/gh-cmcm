@@ -7,6 +7,7 @@ import (
 
 	"github.com/spf13/cobra"
 
+	"github.com/johnmanjiro13/gh-cmcm/pkg/api"
 	"github.com/johnmanjiro13/gh-cmcm/pkg/comment"
 )
 
@@ -30,14 +31,16 @@ func newGetCmd() *cobra.Command {
 			}
 
 			ctx := context.Background()
-			client, err := comment.NewClient(ctx, &comment.Config{
+			client, err := api.NewClient(ctx, &api.Config{
 				Owner: owner,
 				Repo:  repo,
 			})
 			if err != nil {
 				return err
 			}
-			cmt, err := client.Get(ctx, id)
+			commenter := comment.NewCommenter(client)
+
+			cmt, err := commenter.Get(ctx, id)
 			if err != nil {
 				return err
 			}

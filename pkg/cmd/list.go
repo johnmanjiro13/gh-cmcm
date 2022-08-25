@@ -3,8 +3,10 @@ package cmd
 import (
 	"context"
 	"fmt"
+
 	"github.com/spf13/cobra"
 
+	"github.com/johnmanjiro13/gh-cmcm/pkg/api"
 	"github.com/johnmanjiro13/gh-cmcm/pkg/comment"
 )
 
@@ -25,16 +27,17 @@ func newListCmd() *cobra.Command {
 			}
 
 			ctx := context.Background()
-			client, err := comment.NewClient(ctx, &comment.Config{
+			client, err := api.NewClient(ctx, &api.Config{
 				Owner: owner,
 				Repo:  repo,
 			})
 			if err != nil {
 				return err
 			}
+			commenter := comment.NewCommenter(client)
 
 			sha := args[0]
-			comments, err := client.List(ctx, sha, perPage)
+			comments, err := commenter.List(ctx, sha, perPage)
 			if err != nil {
 				return err
 			}

@@ -7,6 +7,7 @@ import (
 
 	"github.com/spf13/cobra"
 
+	"github.com/johnmanjiro13/gh-cmcm/pkg/api"
 	"github.com/johnmanjiro13/gh-cmcm/pkg/comment"
 )
 
@@ -30,15 +31,16 @@ func newDeleteCmd() *cobra.Command {
 			}
 
 			ctx := context.Background()
-			client, err := comment.NewClient(ctx, &comment.Config{
+			client, err := api.NewClient(ctx, &api.Config{
 				Owner: owner,
 				Repo:  repo,
 			})
 			if err != nil {
 				return err
 			}
+			commenter := comment.NewCommenter(client)
 
-			if err := client.Delete(ctx, id); err != nil {
+			if err := commenter.Delete(ctx, id); err != nil {
 				return err
 			}
 			fmt.Println("Comment deleted.")
