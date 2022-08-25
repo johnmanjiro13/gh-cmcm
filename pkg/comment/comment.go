@@ -2,8 +2,6 @@ package comment
 
 import (
 	"context"
-	"encoding/json"
-	"fmt"
 )
 
 type Client interface {
@@ -34,16 +32,12 @@ type CreateOption struct {
 	Position int
 }
 
-func (c *Commenter) Get(ctx context.Context, id int64) (string, error) {
+func (c *Commenter) Get(ctx context.Context, id int64) (*Comment, error) {
 	cmt, err := c.client.GetComment(ctx, id)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
-	result, err := json.Marshal(cmt)
-	if err != nil {
-		return "", fmt.Errorf("failed to marshal: %w", err)
-	}
-	return string(result), nil
+	return cmt, nil
 }
 
 func (c *Commenter) Create(ctx context.Context, sha, body string, opt *CreateOption) (string, error) {
@@ -62,16 +56,12 @@ func (c *Commenter) Update(ctx context.Context, id int64, body string) (string, 
 	return cmt.HTMLURL, nil
 }
 
-func (c *Commenter) List(ctx context.Context, sha string, perPage int) (string, error) {
+func (c *Commenter) List(ctx context.Context, sha string, perPage int) ([]*Comment, error) {
 	comments, err := c.client.ListComment(ctx, sha, perPage)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
-	result, err := json.Marshal(comments)
-	if err != nil {
-		return "", fmt.Errorf("failed to marshal: %w", err)
-	}
-	return string(result), nil
+	return comments, nil
 }
 
 func (c *Commenter) Delete(ctx context.Context, id int64) error {

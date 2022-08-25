@@ -14,6 +14,7 @@ import (
 func newGetCmd() *cobra.Command {
 	var (
 		repository string
+		output     string
 	)
 
 	getCmd := &cobra.Command{
@@ -21,6 +22,10 @@ func newGetCmd() *cobra.Command {
 		Short: "Get a commit comment by id",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
+			outputFormat, err := ParseOutputFormat(output)
+			if err != nil {
+				return err
+			}
 			owner, repo, err := parseRepository(repository)
 			if err != nil {
 				return err
@@ -44,11 +49,21 @@ func newGetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			cmd.Println(cmt)
+			if outputFormat == JSON {
+				if err := printJSON(cmd.OutOrStdout(), cmt); err != nil {
+					return err
+				}
+			} else {
+				if err := printPlain(cmd.OutOrStdout(), cmt); err != nil {
+					return err
+				}
+			}
 			return nil
 		},
 	}
 
 	getCmd.Flags().StringVarP(&repository, "repo", "R", "", "Select another repository using the OWNER/REPO format")
+	getCmd.Flags().StringVarP(&output, "output", "o", string(Plain), "Output format. plain or json")
+
 	return getCmd
 }

@@ -1,11 +1,16 @@
 package cmd
 
 import (
+	"bufio"
+	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"strings"
 
 	"github.com/cli/go-gh"
+
+	"github.com/johnmanjiro13/gh-cmcm/pkg/comment"
 )
 
 func parseRepository(repository string) (owner, repo string, err error) {
@@ -39,4 +44,36 @@ func resolveRepository() (owner, repo string, err error) {
 	owner = ownerRepo[0]
 	repo = ownerRepo[1]
 	return owner, repo, nil
+}
+
+func printPlain(w io.Writer, cmt ...*comment.Comment) error {
+	bw := bufio.NewWriter(w)
+	for i, c := range cmt {
+		var s string
+		if i > 0 {
+			s = "----------------------------\n"
+		}
+		s = s + fmt.Sprintln("ID:\t", c.ID)
+		s = s + fmt.Sprintln("Author:\t", c.Author)
+		s = s + fmt.Sprintln("URL:\t", c.HTMLURL)
+		s = s + fmt.Sprintln("")
+		s = s + fmt.Sprintln(c.Body)
+		if _, err := bw.Write([]byte(s)); err != nil {
+			return err
+		}
+	}
+
+	return bw.Flush()
+}
+
+func printJSON(w io.Writer, cmt ...*comment.Comment) error {
+	s, err := json.Marshal(cmt)
+	if err != nil {
+		return fmt.Errorf("failed to marshal: %w", err)
+	}
+	bw := bufio.NewWriter(w)
+	if _, err := bw.Write(s); err != nil {
+		return err
+	}
+	return bw.Flush()
 }
