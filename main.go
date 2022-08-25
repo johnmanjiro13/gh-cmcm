@@ -1,7 +1,30 @@
+/*
+Copyright © 2022 NAME HERE <EMAIL ADDRESS>
+*/
 package main
 
-import "fmt"
+import (
+	"os"
+
+	"github.com/johnmanjiro13/gh-cmcm/cmd"
+)
+
+type exitCode int
+
+const (
+	// exitStatusOK is status code zero
+	exitStatusOK exitCode = iota
+	// exitStatusError is status code non-zero
+	exitStatusError
+)
 
 func main() {
-	fmt.Println("hello world")
+	os.Exit(int(run()))
+}
+
+func run() exitCode {
+	if err := cmd.New().Execute(); err != nil {
+		return exitStatusError
+	}
+	return exitStatusOK
 }
