@@ -9,13 +9,15 @@ func New() (*cobra.Command, error) {
 		Use:   "cmcm",
 		Short: "comments to git commit",
 	}
-	rootCmd.AddCommand(newListCmd())
-	rootCmd.AddCommand(newGetCmd())
+
 	updateCmd, err := newUpdateCmd()
 	if err != nil {
 		return nil, err
 	}
 	rootCmd.AddCommand(updateCmd)
+	rootCmd.AddCommand(newListCmd())
+	rootCmd.AddCommand(newGetCmd())
+	rootCmd.AddCommand(newDeleteCmd())
 
 	return rootCmd, nil
 }
