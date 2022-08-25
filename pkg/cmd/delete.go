@@ -43,7 +43,7 @@ func newDeleteCmd() *cobra.Command {
 			if err := commenter.Delete(ctx, id); err != nil {
 				return err
 			}
-			fmt.Println("Comment deleted.")
+			cmd.Println("Comment deleted.")
 			return nil
 		},
 	}

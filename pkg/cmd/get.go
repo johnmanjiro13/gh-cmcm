@@ -44,7 +44,7 @@ func newGetCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			fmt.Println(cmt)
+			cmd.Println(cmt)
 			return nil
 		},
 	}

@@ -3,7 +3,6 @@ package cmd
 import (
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/spf13/cobra"
 
@@ -51,8 +50,8 @@ func newCreateCmd() (*cobra.Command, error) {
 			if err != nil {
 				return err
 			}
-			fmt.Println("Comment created.")
-			fmt.Println("URL: ", url)
+			cmd.Println("Comment created.")
+			cmd.Println("URL: ", url)
 			return nil
 		},
 	}

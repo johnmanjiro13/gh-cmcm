@@ -49,8 +49,8 @@ func newUpdateCmd() (*cobra.Command, error) {
 			if err != nil {
 				return err
 			}
-			fmt.Println("Comment updated.")
-			fmt.Println("URL: ", url)
+			cmd.Println("Comment updated.")
+			cmd.Println("URL: ", url)
 			return nil
 		},
 	}

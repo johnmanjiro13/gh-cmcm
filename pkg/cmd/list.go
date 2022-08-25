@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/spf13/cobra"
 
@@ -41,7 +40,7 @@ func newListCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			fmt.Println(comments)
+			cmd.Println(comments)
 			return nil
 		},
 	}
