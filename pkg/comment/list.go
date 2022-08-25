@@ -3,6 +3,7 @@ package comment
 import (
 	"context"
 	"fmt"
+	"net/http"
 
 	"github.com/google/go-github/v47/github"
 )
@@ -14,6 +15,9 @@ func (c *Client) List(ctx context.Context, sha string) ([]*Comment, error) {
 		cmt, res, err := c.Repositories.ListCommitComments(ctx, c.owner, c.repo, sha, &github.ListOptions{Page: page})
 		if err != nil {
 			return nil, fmt.Errorf("failed to request: %w", err)
+		}
+		if res.StatusCode != http.StatusOK {
+			return nil, fmt.Errorf("error response: %d", res.StatusCode)
 		}
 
 		for _, c := range cmt {

@@ -10,5 +10,6 @@ func New() *cobra.Command {
 		Short: "comments to git commit",
 	}
 	rootCmd.AddCommand(newListCmd())
+	rootCmd.AddCommand(newGetCmd())
 	return rootCmd
 }
