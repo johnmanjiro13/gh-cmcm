@@ -8,6 +8,7 @@ builds:
       - linux
       - windows
       - darwin
+    main: ./cmd/gh-cmcm/
 archives:
   - name_template: '{{ .Os }}-{{ .Arch }}'
     format: binary
