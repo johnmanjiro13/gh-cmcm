@@ -12,9 +12,9 @@ gh extension install johnmanjiro13/gh-cmcm
 
 ### Authorization
 
-You must set personal access token of github to `GITHUB_TOKEN` environment variable.
+You must set your personal access token of github to `GITHUB_TOKEN` environment variable.
 
-If you use github enterprise, you must set api base url to `GITHUB_BASE_URL` environment variable.
+If you use github enterprise, you must set your api base url to `GITHUB_BASE_URL` environment variable.
 
 ### Create a comment
 ```
