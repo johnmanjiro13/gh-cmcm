@@ -27,7 +27,7 @@ gh cmcm get <comment_id>
 ```
 You can use the `--json` flag if you want to get result as json.
 
-### List a comment of a commit
+### List comments of a commit
 ```
 gh cmcm list <comment_id>
 ```
