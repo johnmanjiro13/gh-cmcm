@@ -4,6 +4,7 @@ import (
 	"context"
 )
 
+//go:generate mockgen -source=$GOFILE -package=mock_$GOPACKAGE -destination=mock_$GOPACKAGE/mock_$GOPACKAGE.go
 type Client interface {
 	GetComment(ctx context.Context, id int64) (*Comment, error)
 	CreateComment(ctx context.Context, sha, body string, opt *CreateOption) (*Comment, error)
