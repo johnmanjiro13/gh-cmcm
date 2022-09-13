@@ -1,10 +1,8 @@
-package cmd
+package cmcm
 
-import (
-	"github.com/spf13/cobra"
-)
+import "github.com/spf13/cobra"
 
-func New() (*cobra.Command, error) {
+func NewRootCmd() (*cobra.Command, error) {
 	rootCmd := &cobra.Command{
 		Use:   "cmcm",
 		Short: "comments to git commit",

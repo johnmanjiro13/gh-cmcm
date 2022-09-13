@@ -1,13 +1,10 @@
-package cmd
+package cmcm
 
 import (
 	"context"
 	"errors"
 
 	"github.com/spf13/cobra"
-
-	"github.com/johnmanjiro13/gh-cmcm/pkg/api"
-	"github.com/johnmanjiro13/gh-cmcm/pkg/comment"
 )
 
 func newCreateCmd() (*cobra.Command, error) {
@@ -32,21 +29,16 @@ func newCreateCmd() (*cobra.Command, error) {
 			}
 
 			ctx := context.Background()
-			client, err := api.NewClient(ctx, &api.Config{
-				Owner: owner,
-				Repo:  repo,
+			commenter, err := newCommenter(ctx, &config{
+				owner: owner,
+				repo:  repo,
 			})
 			if err != nil {
 				return err
 			}
-			commenter := comment.NewCommenter(client)
 
 			sha := args[0]
-			opt := &comment.CreateOption{
-				Path:     path,
-				Position: position,
-			}
-			url, err := commenter.Create(ctx, sha, body, opt)
+			url, err := commenter.Create(ctx, sha, body, path, position)
 			if err != nil {
 				return err
 			}

@@ -1,4 +1,4 @@
-package cmd
+package cmcm
 
 import (
 	"bufio"
@@ -9,8 +9,6 @@ import (
 	"strings"
 
 	"github.com/cli/go-gh"
-
-	"github.com/johnmanjiro13/gh-cmcm/pkg/comment"
 )
 
 func parseRepository(repository string) (owner, repo string, err error) {
@@ -46,7 +44,7 @@ func resolveRepository() (owner, repo string, err error) {
 	return owner, repo, nil
 }
 
-func printPlain(w io.Writer, cmt ...*comment.Comment) error {
+func printPlain(w io.Writer, cmt ...*Comment) error {
 	bw := bufio.NewWriter(w)
 	for i, c := range cmt {
 		var s string
@@ -66,7 +64,7 @@ func printPlain(w io.Writer, cmt ...*comment.Comment) error {
 	return bw.Flush()
 }
 
-func printJSON(w io.Writer, cmt ...*comment.Comment) error {
+func printJSON(w io.Writer, cmt ...*Comment) error {
 	var s []byte
 	var err error
 	if len(cmt) == 1 {
