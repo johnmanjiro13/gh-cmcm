@@ -40,5 +40,5 @@ gh cmcm update <comment_id> --body 'Updated comment by cli'
 
 ### Delete a comment
 ```
-gh cmcm update <comment_id>
+gh cmcm delete <comment_id>
 ```
