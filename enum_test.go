@@ -1,20 +1,18 @@
-package cmd_test
+package cmcm
 
 import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-
-	"github.com/johnmanjiro13/gh-cmcm/pkg/cmd"
 )
 
 func TestOutputFormat_String(t *testing.T) {
 	tests := map[string]struct {
-		format cmd.OutputFormat
+		format OutputFormat
 		want   string
 	}{
-		"plain": {cmd.Plain, "plain"},
-		"json":  {cmd.JSON, "json"},
+		"plain": {Plain, "plain"},
+		"json":  {JSON, "json"},
 	}
 
 	for name, tt := range tests {
@@ -26,12 +24,12 @@ func TestOutputFormat_String(t *testing.T) {
 
 func TestOutputFormat_Valid(t *testing.T) {
 	tests := map[string]struct {
-		format cmd.OutputFormat
+		format OutputFormat
 		want   error
 	}{
-		"plain":   {cmd.Plain, nil},
-		"json":    {cmd.JSON, nil},
-		"invalid": {cmd.OutputFormat("invalid"), cmd.ErrInvalidOutputFormat},
+		"plain":   {Plain, nil},
+		"json":    {JSON, nil},
+		"invalid": {OutputFormat("invalid"), ErrInvalidOutputFormat},
 	}
 
 	for name, tt := range tests {
@@ -48,17 +46,17 @@ func TestOutputFormat_Valid(t *testing.T) {
 func TestParseOutputFormat(t *testing.T) {
 	tests := map[string]struct {
 		s       string
-		want    cmd.OutputFormat
+		want    OutputFormat
 		wantErr error
 	}{
-		"plain":   {"plain", cmd.Plain, nil},
-		"json":    {"json", cmd.JSON, nil},
-		"invalid": {"invalid", "", cmd.ErrInvalidOutputFormat},
+		"plain":   {"plain", Plain, nil},
+		"json":    {"json", JSON, nil},
+		"invalid": {"invalid", "", ErrInvalidOutputFormat},
 	}
 
 	for name, tt := range tests {
 		t.Run(name, func(t *testing.T) {
-			got, err := cmd.ParseOutputFormat(tt.s)
+			got, err := ParseOutputFormat(tt.s)
 			assert.Equal(t, tt.want, got)
 			if tt.wantErr != nil {
 				assert.ErrorIs(t, err, tt.wantErr)

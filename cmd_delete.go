@@ -1,4 +1,4 @@
-package cmd
+package cmcm
 
 import (
 	"context"
@@ -6,9 +6,6 @@ import (
 	"strconv"
 
 	"github.com/spf13/cobra"
-
-	"github.com/johnmanjiro13/gh-cmcm/pkg/api"
-	"github.com/johnmanjiro13/gh-cmcm/pkg/comment"
 )
 
 func newDeleteCmd() *cobra.Command {
@@ -31,14 +28,13 @@ func newDeleteCmd() *cobra.Command {
 			}
 
 			ctx := context.Background()
-			client, err := api.NewClient(ctx, &api.Config{
-				Owner: owner,
-				Repo:  repo,
+			commenter, err := newCommenter(ctx, &config{
+				owner: owner,
+				repo:  repo,
 			})
 			if err != nil {
 				return err
 			}
-			commenter := comment.NewCommenter(client)
 
 			if err := commenter.Delete(ctx, id); err != nil {
 				return err

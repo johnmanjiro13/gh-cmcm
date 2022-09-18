@@ -1,4 +1,4 @@
-package cmd
+package cmcm
 
 import (
 	"context"
@@ -7,9 +7,6 @@ import (
 	"strconv"
 
 	"github.com/spf13/cobra"
-
-	"github.com/johnmanjiro13/gh-cmcm/pkg/api"
-	"github.com/johnmanjiro13/gh-cmcm/pkg/comment"
 )
 
 func newUpdateCmd() (*cobra.Command, error) {
@@ -36,14 +33,13 @@ func newUpdateCmd() (*cobra.Command, error) {
 			}
 
 			ctx := context.Background()
-			client, err := api.NewClient(ctx, &api.Config{
-				Owner: owner,
-				Repo:  repo,
+			commenter, err := newCommenter(ctx, &config{
+				owner: owner,
+				repo:  repo,
 			})
 			if err != nil {
 				return err
 			}
-			commenter := comment.NewCommenter(client)
 
 			url, err := commenter.Update(ctx, id, body)
 			if err != nil {

@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/johnmanjiro13/gh-cmcm/pkg/cmd"
+	cmcm "github.com/johnmanjiro13/gh-cmcm"
 )
 
 type exitCode int
@@ -20,7 +20,7 @@ func main() {
 }
 
 func run() exitCode {
-	rootCmd, err := cmd.New()
+	rootCmd, err := cmcm.NewRootCmd()
 	if err != nil {
 		return exitStatusError
 	}
