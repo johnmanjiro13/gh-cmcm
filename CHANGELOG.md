@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.0.4](https://github.com/johnmanjiro13/gh-cmcm/compare/v0.0.3...v0.0.4) - 2022-09-18
+- Refactor/flat package by @johnmanjiro13 in https://github.com/johnmanjiro13/gh-cmcm/pull/10
+
 ## [v0.0.3](https://github.com/johnmanjiro13/gh-cmcm/compare/v0.0.2...v0.0.3) - 2022-09-08
 - ci: Introduce tagpr by @johnmanjiro13 in https://github.com/johnmanjiro13/gh-cmcm/pull/8
 
