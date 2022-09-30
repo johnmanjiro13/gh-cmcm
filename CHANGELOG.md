@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.0.5](https://github.com/johnmanjiro13/gh-cmcm/compare/v0.0.4...v0.0.5) - 2022-09-30
+- chore(deps): Bump github.com/cli/go-gh from 0.1.0 to 0.1.1 by @dependabot in https://github.com/johnmanjiro13/gh-cmcm/pull/13
+- chore: Dissable tagpr release creating by @johnmanjiro13 in https://github.com/johnmanjiro13/gh-cmcm/pull/15
+- chore(deps): Bump github.com/google/go-github/v47 from 47.0.0 to 47.1.0 by @dependabot in https://github.com/johnmanjiro13/gh-cmcm/pull/12
+
 ## [v0.0.4](https://github.com/johnmanjiro13/gh-cmcm/compare/v0.0.3...v0.0.4) - 2022-09-18
 - Refactor/flat package by @johnmanjiro13 in https://github.com/johnmanjiro13/gh-cmcm/pull/10
 
