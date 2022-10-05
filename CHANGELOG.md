@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.0.6](https://github.com/johnmanjiro13/gh-cmcm/compare/v0.0.5...v0.0.6) - 2022-10-05
+- ci: Release with tagpr and gorelease in the same workflow by @johnmanjiro13 in https://github.com/johnmanjiro13/gh-cmcm/pull/17
+
 ## [v0.0.5](https://github.com/johnmanjiro13/gh-cmcm/compare/v0.0.4...v0.0.5) - 2022-09-30
 - chore(deps): Bump github.com/cli/go-gh from 0.1.0 to 0.1.1 by @dependabot in https://github.com/johnmanjiro13/gh-cmcm/pull/13
 - chore: Dissable tagpr release creating by @johnmanjiro13 in https://github.com/johnmanjiro13/gh-cmcm/pull/15
