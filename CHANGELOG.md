@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.0.7](https://github.com/johnmanjiro13/gh-cmcm/compare/v0.0.6...v0.0.7) - 2022-11-14
+- chore(deps): Bump github.com/stretchr/testify from 1.8.0 to 1.8.1 by @dependabot in https://github.com/johnmanjiro13/gh-cmcm/pull/21
+- chore(deps): Bump github.com/spf13/cobra from 1.5.0 to 1.6.1 by @dependabot in https://github.com/johnmanjiro13/gh-cmcm/pull/22
+- chore(deps): Bump github.com/cli/go-gh from 0.1.1 to 0.1.2 by @dependabot in https://github.com/johnmanjiro13/gh-cmcm/pull/20
+
 ## [v0.0.6](https://github.com/johnmanjiro13/gh-cmcm/compare/v0.0.5...v0.0.6) - 2022-10-05
 - ci: Release with tagpr and gorelease in the same workflow by @johnmanjiro13 in https://github.com/johnmanjiro13/gh-cmcm/pull/17
 
