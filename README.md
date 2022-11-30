@@ -21,13 +21,13 @@ If you use github enterprise, you need to set your api base url to `GITHUB_BASE_
 gh cmcm create <commit_sha> --body 'Comment by cli'
 ```
 
-### Get a comment of a commit
+### Get a comment
 ```
 gh cmcm get <comment_id>
 ```
 You can use the `--json` flag if you want to get result as json.
 
-### List comments of a commit
+### List comments
 ```
 gh cmcm list <comment_id>
 ```
