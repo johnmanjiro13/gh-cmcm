@@ -3,7 +3,7 @@ module github.com/johnmanjiro13/gh-cmcm
 go 1.19
 
 require (
-	github.com/cli/go-gh v0.1.2
+	github.com/cli/go-gh v1.0.0
 	github.com/google/go-github/v47 v47.1.0
 	github.com/spf13/cobra v1.6.1
 	github.com/stretchr/testify v1.8.1
