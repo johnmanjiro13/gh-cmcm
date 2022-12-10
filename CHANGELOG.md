@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.1.0](https://github.com/johnmanjiro13/gh-cmcm/compare/v0.0.7...v0.1.0) - 2022-12-10
+- docs: Update README by @johnmanjiro13 in https://github.com/johnmanjiro13/gh-cmcm/pull/25
+- Configure Renovate by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/27
+- Configure renovate by @johnmanjiro13 in https://github.com/johnmanjiro13/gh-cmcm/pull/31
+- fix(deps): update module github.com/cli/go-gh to v1 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/29
+- fix(deps): update module golang.org/x/oauth2 to v0.3.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/28
+- refactor: reviewdog yaml by @johnmanjiro13 in https://github.com/johnmanjiro13/gh-cmcm/pull/32
+
 ## [v0.0.7](https://github.com/johnmanjiro13/gh-cmcm/compare/v0.0.6...v0.0.7) - 2022-11-14
 - chore(deps): Bump github.com/stretchr/testify from 1.8.0 to 1.8.1 by @dependabot in https://github.com/johnmanjiro13/gh-cmcm/pull/21
 - chore(deps): Bump github.com/spf13/cobra from 1.5.0 to 1.6.1 by @dependabot in https://github.com/johnmanjiro13/gh-cmcm/pull/22
