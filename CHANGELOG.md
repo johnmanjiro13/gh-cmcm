@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.1.1](https://github.com/johnmanjiro13/gh-cmcm/compare/v0.1.0...v0.1.1) - 2023-01-06
+- chore(deps): update goreleaser/goreleaser-action action to v4 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/33
+- fix(deps): update module github.com/google/go-github/v47 to v48 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/35
+- fix(deps): update module golang.org/x/oauth2 to v0.4.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/36
+
 ## [v0.1.0](https://github.com/johnmanjiro13/gh-cmcm/compare/v0.0.7...v0.1.0) - 2022-12-10
 - docs: Update README by @johnmanjiro13 in https://github.com/johnmanjiro13/gh-cmcm/pull/25
 - Configure Renovate by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/27
