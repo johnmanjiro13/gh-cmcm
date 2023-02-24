@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/cli/go-gh v1.1.0
 	github.com/google/go-github/v47 v47.1.0
-	github.com/google/go-github/v48 v48.2.0
+	github.com/google/go-github/v50 v50.1.0
 	github.com/spf13/cobra v1.6.1
 	github.com/stretchr/testify v1.8.1
 	golang.org/x/oauth2 v0.5.0
