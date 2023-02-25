@@ -1,8 +1,8 @@
 name: test
 on:
+  pull_request:
   push:
-    branches:
-      - "**"
+    branches: ["main"]
 jobs:
   test:
     strategy:
@@ -10,9 +10,9 @@ jobs:
         os: [ ubuntu-latest, macOS-latest, windows-latest ]
     runs-on: ${{ matrix.os }}
     steps:
+      - uses: actions/checkout@v3
       - uses: actions/setup-go@v3
         with:
-          go-version: 1.x
-      - uses: actions/checkout@v3
+          go-version-file: go.mod
       - name: test
         run: go test -cover -race ./...
