@@ -1,11 +1,13 @@
 package cmcm
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
+	"os/exec"
 	"strings"
 
-	"github.com/cli/go-gh"
+	"github.com/cli/safeexec"
 )
 
 func parseRepository(repository string) (owner, repo string, err error) {
@@ -27,7 +29,7 @@ func parseRepository(repository string) (owner, repo string, err error) {
 
 func resolveRepository() (owner, repo string, err error) {
 	args := []string{"repo", "view"}
-	stdOut, _, err := gh.Exec(args...)
+	stdOut, _, err := gh(args...)
 	if err != nil {
 		return "", "", fmt.Errorf("failed to view repo: %w", err)
 	}
@@ -39,4 +41,25 @@ func resolveRepository() (owner, repo string, err error) {
 	owner = ownerRepo[0]
 	repo = ownerRepo[1]
 	return owner, repo, nil
+}
+
+func gh(args ...string) (sout, eout *bytes.Buffer, err error) {
+	sout = new(bytes.Buffer)
+	eout = new(bytes.Buffer)
+	bin, err := safeexec.LookPath("gh")
+	if err != nil {
+		err = fmt.Errorf("could not find gh. err: %w", err)
+		return
+	}
+
+	cmd := exec.Command(bin, args...)
+	cmd.Stdout = sout
+	cmd.Stderr = eout
+
+	err = cmd.Run()
+	if err != nil {
+		err = fmt.Errorf("failed to run gh. err: %w, eout: %s", err, eout.String())
+		return
+	}
+	return
 }
