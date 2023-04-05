@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.1.2](https://github.com/johnmanjiro13/gh-cmcm/compare/v0.1.1...v0.1.2) - 2023-04-05
+- fix(deps): update module github.com/stretchr/testify to v1.8.2 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/45
+- fix(deps): update module github.com/cli/go-gh to v1.2.1 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/47
+- fix(deps): update module golang.org/x/oauth2 to v0.6.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/48
+- fix(deps): update module github.com/google/go-github/v50 to v50.2.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/51
+- chore(deps): update actions/setup-go action to v4 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/50
+- feat: Use safeexec instead of go-gh by @johnmanjiro13 in https://github.com/johnmanjiro13/gh-cmcm/pull/52
+
 ## [v0.1.1](https://github.com/johnmanjiro13/gh-cmcm/compare/v0.1.0...v0.1.1) - 2023-02-25
 - chore(deps): update goreleaser/goreleaser-action action to v4 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/33
 - fix(deps): update module github.com/google/go-github/v47 to v48 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/35
