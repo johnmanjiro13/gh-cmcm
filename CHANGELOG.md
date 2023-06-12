@@ -1,5 +1,14 @@
 # Changelog
 
+## [v0.1.3](https://github.com/johnmanjiro13/gh-cmcm/compare/v0.1.2...v0.1.3) - 2023-06-12
+- fix(deps): update module github.com/spf13/cobra to v1.7.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/53
+- fix(deps): update module github.com/cli/safeexec to v1.0.1 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/56
+- fix(deps): update module golang.org/x/oauth2 to v0.7.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/54
+- fix(deps): update module golang.org/x/oauth2 to v0.8.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/60
+- fix(deps): update module github.com/stretchr/testify to v1.8.3 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/61
+- fix(deps): update module github.com/stretchr/testify to v1.8.4 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/62
+- chore: go mod tidy by @johnmanjiro13 in https://github.com/johnmanjiro13/gh-cmcm/pull/64
+
 ## [v0.1.2](https://github.com/johnmanjiro13/gh-cmcm/compare/v0.1.1...v0.1.2) - 2023-04-05
 - fix(deps): update module github.com/stretchr/testify to v1.8.2 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/45
 - fix(deps): update module github.com/cli/go-gh to v1.2.1 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/47
