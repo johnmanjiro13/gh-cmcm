@@ -1,5 +1,17 @@
 # Changelog
 
+## [v0.1.4](https://github.com/johnmanjiro13/gh-cmcm/compare/v0.1.3...v0.1.4) - 2024-02-09
+- fix(deps): update module golang.org/x/oauth2 to v0.9.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/65
+- fix(deps): update module golang.org/x/oauth2 to v0.10.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/67
+- fix(deps): update module golang.org/x/oauth2 to v0.11.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/68
+- fix(deps): update module golang.org/x/oauth2 to v0.12.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/70
+- fix(deps): update module golang.org/x/oauth2 to v0.13.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/74
+- fix(deps): update module github.com/spf13/cobra to v1.8.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/76
+- fix(deps): update module golang.org/x/oauth2 to v0.14.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/77
+- fix(deps): update module golang.org/x/oauth2 to v0.15.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/78
+- fix(deps): update module golang.org/x/oauth2 to v0.16.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/81
+- fix(deps): update module golang.org/x/oauth2 to v0.17.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/83
+
 ## [v0.1.3](https://github.com/johnmanjiro13/gh-cmcm/compare/v0.1.2...v0.1.3) - 2023-06-12
 - fix(deps): update module github.com/spf13/cobra to v1.7.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/53
 - fix(deps): update module github.com/cli/safeexec to v1.0.1 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/56
