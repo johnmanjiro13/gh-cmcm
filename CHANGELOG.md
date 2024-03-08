@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.1.5](https://github.com/johnmanjiro13/gh-cmcm/compare/v0.1.4...v0.1.5) - 2024-03-08
+- fix(deps): update module github.com/stretchr/testify to v1.9.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/85
+- fix(deps): update module golang.org/x/oauth2 to v0.18.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/88
+
 ## [v0.1.4](https://github.com/johnmanjiro13/gh-cmcm/compare/v0.1.3...v0.1.4) - 2024-02-09
 - fix(deps): update module golang.org/x/oauth2 to v0.9.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/65
 - fix(deps): update module golang.org/x/oauth2 to v0.10.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/67
