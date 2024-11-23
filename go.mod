@@ -6,7 +6,7 @@ require (
 	github.com/cli/safeexec v1.0.1
 	github.com/google/go-github/v50 v50.2.0
 	github.com/spf13/cobra v1.8.1
-	github.com/stretchr/testify v1.9.0
+	github.com/stretchr/testify v1.10.0
 	golang.org/x/oauth2 v0.24.0
 )
 
