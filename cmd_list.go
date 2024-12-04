@@ -1,8 +1,6 @@
 package cmcm
 
 import (
-	"context"
-
 	"github.com/spf13/cobra"
 )
 
@@ -27,8 +25,7 @@ func newListCmd() *cobra.Command {
 				return err
 			}
 
-			ctx := context.Background()
-			commenter, err := newCommenter(ctx, &config{
+			commenter, err := newCommenter(&config{
 				owner: owner,
 				repo:  repo,
 			})
@@ -37,7 +34,7 @@ func newListCmd() *cobra.Command {
 			}
 
 			sha := args[0]
-			comments, err := commenter.List(ctx, sha, perPage)
+			comments, err := commenter.List(sha, perPage)
 			if err != nil {
 				return err
 			}

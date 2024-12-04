@@ -1,7 +1,6 @@
 package cmcm
 
 import (
-	"context"
 	"errors"
 
 	"github.com/spf13/cobra"
@@ -28,8 +27,7 @@ func newCreateCmd() (*cobra.Command, error) {
 				return err
 			}
 
-			ctx := context.Background()
-			commenter, err := newCommenter(ctx, &config{
+			commenter, err := newCommenter(&config{
 				owner: owner,
 				repo:  repo,
 			})
@@ -38,7 +36,7 @@ func newCreateCmd() (*cobra.Command, error) {
 			}
 
 			sha := args[0]
-			url, err := commenter.Create(ctx, sha, body, path, position)
+			url, err := commenter.Create(sha, body, path, position)
 			if err != nil {
 				return err
 			}
