@@ -1,7 +1,6 @@
 package cmcm
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	"strconv"
@@ -32,8 +31,7 @@ func newUpdateCmd() (*cobra.Command, error) {
 				return fmt.Errorf("failed to parse arg to integer: %s", args[0])
 			}
 
-			ctx := context.Background()
-			commenter, err := newCommenter(ctx, &config{
+			commenter, err := newCommenter(&config{
 				owner: owner,
 				repo:  repo,
 			})
@@ -41,7 +39,7 @@ func newUpdateCmd() (*cobra.Command, error) {
 				return err
 			}
 
-			url, err := commenter.Update(ctx, id, body)
+			url, err := commenter.Update(id, body)
 			if err != nil {
 				return err
 			}

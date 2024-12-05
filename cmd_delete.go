@@ -1,7 +1,6 @@
 package cmcm
 
 import (
-	"context"
 	"fmt"
 	"strconv"
 
@@ -27,8 +26,7 @@ func newDeleteCmd() *cobra.Command {
 				return fmt.Errorf("failed to parse arg to integer: %s", args[0])
 			}
 
-			ctx := context.Background()
-			commenter, err := newCommenter(ctx, &config{
+			commenter, err := newCommenter(&config{
 				owner: owner,
 				repo:  repo,
 			})
@@ -36,7 +34,7 @@ func newDeleteCmd() *cobra.Command {
 				return err
 			}
 
-			if err := commenter.Delete(ctx, id); err != nil {
+			if err := commenter.Delete(id); err != nil {
 				return err
 			}
 			cmd.Println("Comment deleted.")

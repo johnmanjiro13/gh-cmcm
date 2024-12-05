@@ -1,17 +1,20 @@
 package cmcm
 
 import (
-	"context"
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"net/http"
+	"net/url"
 
-	"github.com/google/go-github/v50/github"
+	"github.com/cli/go-gh/v2/pkg/api"
+	"github.com/tomnomnom/linkheader"
 )
 
 type commenter struct {
-	gh    *github.Client
-	owner string
-	repo  string
+	client *api.RESTClient
+	owner  string
+	repo   string
 }
 
 type config struct {
@@ -26,89 +29,126 @@ type Comment struct {
 	HTMLURL string `json:"html_url"`
 }
 
-func newCommenter(ctx context.Context, cfg *config) (*commenter, error) {
+func newCommenter(cfg *config) (*commenter, error) {
 	cm := &commenter{owner: cfg.owner, repo: cfg.repo}
-	cli, err := ghClient(ctx)
+	client, err := api.DefaultRESTClient()
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("faled to create rest client: %w", err)
 	}
-	cm.gh = cli
+	cm.client = client
 	return cm, nil
 }
 
-func (c *commenter) Get(ctx context.Context, id int64) (*Comment, error) {
-	comment, _, err := c.gh.Repositories.GetComment(ctx, c.owner, c.repo, id)
-	if err != nil {
+func (c *commenter) Get(id int64) (*Comment, error) {
+	resp := struct {
+		ID       int64
+		Body     string
+		User     struct{ Login string }
+		HTML_URL string
+	}{}
+	if err := c.client.Get(fmt.Sprintf("repos/%s/%s/comments/%d", c.owner, c.repo, id), &resp); err != nil {
 		return nil, fmt.Errorf("failed to request: %w", err)
 	}
-	return parseComment(comment), err
+	return &Comment{
+		ID:      resp.ID,
+		Body:    resp.Body,
+		Author:  resp.User.Login,
+		HTMLURL: resp.HTML_URL,
+	}, nil
 }
 
-func (c *commenter) Create(ctx context.Context, sha, body string, path string, position int) (string, error) {
-	rc := &github.RepositoryComment{
-		Body:     &body,
-		Path:     &path,
-		Position: &position,
+func (c *commenter) Create(sha, body string, path string, position int) (string, error) {
+	reqBody := struct {
+		Body     string `json:"body"`
+		Path     string `json:"path"`
+		Position int    `json:"position"`
+	}{
+		Body:     body,
+		Path:     path,
+		Position: position,
 	}
-	comment, _, err := c.gh.Repositories.CreateComment(ctx, c.owner, c.repo, sha, rc)
-	if err != nil {
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(reqBody); err != nil {
+		return "", fmt.Errorf("failed to encode request body: %w", err)
+	}
+	resp := struct{ HTML_URL string }{}
+	if err := c.client.Post(fmt.Sprintf("repos/%s/%s/commits/%s/comments", c.owner, c.repo, sha), &buf, &resp); err != nil {
 		return "", fmt.Errorf("failed to request: %w", err)
 	}
-	return parseComment(comment).HTMLURL, nil
+	return resp.HTML_URL, nil
 }
 
-func (c *commenter) Update(ctx context.Context, id int64, body string) (*Comment, error) {
-	comment, _, err := c.gh.Repositories.UpdateComment(ctx, c.owner, c.repo, id, &github.RepositoryComment{Body: &body})
-	if err != nil {
-		return nil, fmt.Errorf("failed to request: %w", err)
+func (c *commenter) Update(id int64, body string) (string, error) {
+	reqBody := struct {
+		Body string `json:"body"`
+	}{Body: body}
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(reqBody); err != nil {
+		return "", fmt.Errorf("failed to encode request body: %w", err)
 	}
-	return parseComment(comment), nil
+	resp := struct{ HTML_URL string }{}
+	if err := c.client.Patch(fmt.Sprintf("repos/%s/%s/comments/%d", c.owner, c.repo, id), &buf, &resp); err != nil {
+		return "", fmt.Errorf("failed to request: %w", err)
+	}
+	return resp.HTML_URL, nil
 }
 
-func (c *commenter) List(ctx context.Context, sha string, perPage int) ([]*Comment, error) {
-	var page int
+func (c *commenter) List(sha string, perPage int) ([]*Comment, error) {
 	var result []*Comment
+
+	path := fmt.Sprintf("repos/%s/%s/commits/%s/comments?per_page=%d", c.owner, c.repo, sha, perPage)
 	for {
-		comments, res, err := c.gh.Repositories.ListCommitComments(ctx, c.owner, c.repo, sha, &github.ListOptions{PerPage: perPage, Page: page})
+		resp, err := c.client.Request(http.MethodGet, path, nil)
 		if err != nil {
 			return nil, fmt.Errorf("failed to request: %w", err)
 		}
-		if res.StatusCode != http.StatusOK {
-			return nil, fmt.Errorf("error status code: %d", res.StatusCode)
+		if resp.StatusCode != http.StatusOK {
+			return nil, fmt.Errorf("error status code: %d", resp.StatusCode)
 		}
 
-		for _, comment := range comments {
-			result = append(result, parseComment(comment))
+		comments := make([]struct {
+			ID       int64
+			Body     string
+			User     struct{ Login string }
+			HTML_URL string
+		}, 0)
+		if err := json.NewDecoder(resp.Body).Decode(&comments); err != nil {
+			return nil, fmt.Errorf("failed to decode response body: %w", err)
 		}
-
-		if res.NextPage < 1 {
+		for _, c := range comments {
+			result = append(result, &Comment{
+				ID:      c.ID,
+				Body:    c.Body,
+				Author:  c.User.Login,
+				HTMLURL: c.HTML_URL,
+			})
+		}
+		links := linkheader.Parse(resp.Header.Get("Link"))
+		if len(links) == 0 {
 			break
 		}
-		page = res.NextPage
+
+		var hasNext bool
+		for _, link := range links {
+			if link.Rel == "next" {
+				hasNext = true
+				u, err := url.Parse(link.URL)
+				if err != nil {
+					return nil, fmt.Errorf("failed to parse url: %w", err)
+				}
+				path = fmt.Sprintf("%s?%s", u.Path[1:], u.Query().Encode())
+			}
+		}
+		if !hasNext {
+			break
+		}
 	}
 	return result, nil
 }
 
-func (c *commenter) Delete(ctx context.Context, id int64) error {
-	if _, err := c.gh.Repositories.DeleteComment(ctx, c.owner, c.repo, id); err != nil {
+func (c *commenter) Delete(id int64) error {
+	if err := c.client.Delete(fmt.Sprintf("repos/%s/%s/comments/%d", c.owner, c.repo, id), nil); err != nil {
 		return fmt.Errorf("failed to request: %w", err)
 	}
 	return nil
-}
-
-func parseComment(rc *github.RepositoryComment) *Comment {
-	c := &Comment{}
-	if rc.ID != nil {
-		c.ID = *rc.ID
-	}
-	if rc.Body != nil {
-		c.Body = *rc.Body
-	}
-	if rc.User != nil && rc.User.Login != nil {
-		c.Author = *rc.User.Login
-	}
-	if rc.HTMLURL != nil {
-		c.HTMLURL = *rc.HTMLURL
-	}
-	return c
 }
