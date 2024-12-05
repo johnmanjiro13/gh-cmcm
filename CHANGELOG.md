@@ -1,5 +1,20 @@
 # Changelog
 
+## [v0.1.5](https://github.com/johnmanjiro13/gh-cmcm/compare/v0.1.4...v0.1.5) - 2024-12-05
+- fix(deps): update module github.com/stretchr/testify to v1.9.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/85
+- fix(deps): update module golang.org/x/oauth2 to v0.18.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/88
+- fix(deps): update module golang.org/x/oauth2 to v0.19.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/89
+- fix(deps): update module golang.org/x/oauth2 to v0.20.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/91
+- fix(deps): update module golang.org/x/oauth2 to v0.21.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/93
+- fix(deps): update module github.com/spf13/cobra to v1.8.1 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/95
+- fix(deps): update module golang.org/x/oauth2 to v0.22.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/97
+- fix(deps): update module golang.org/x/oauth2 to v0.23.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/99
+- fix(deps): update module golang.org/x/oauth2 to v0.24.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/102
+- fix(deps): update module github.com/stretchr/testify to v1.10.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/103
+- chore(deps): update actions/checkout action to v4 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/71
+- feat: use go-gh to call github api by @johnmanjiro13 in https://github.com/johnmanjiro13/gh-cmcm/pull/107
+- chore(deps): update actions/setup-go action to v5 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/80
+
 ## [v0.1.4](https://github.com/johnmanjiro13/gh-cmcm/compare/v0.1.3...v0.1.4) - 2024-02-09
 - fix(deps): update module golang.org/x/oauth2 to v0.9.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/65
 - fix(deps): update module golang.org/x/oauth2 to v0.10.0 by @renovate in https://github.com/johnmanjiro13/gh-cmcm/pull/67
