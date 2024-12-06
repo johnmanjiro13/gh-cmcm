@@ -2,7 +2,7 @@ module github.com/johnmanjiro13/gh-cmcm
 
 go 1.21
 
-toolchain go1.23.0
+toolchain go1.23.4
 
 require (
 	github.com/cli/go-gh/v2 v2.11.1
