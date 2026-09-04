@@ -9,7 +9,7 @@ require (
 	github.com/cli/safeexec v1.0.1
 	github.com/spf13/cobra v1.8.1
 	github.com/stretchr/testify v1.10.0
-	github.com/tomnomnom/linkheader v0.0.0-20180905144013-02ca5825eb80
+	github.com/tomnomnom/linkheader v0.0.0-20250811210735-e5fe3b51442e
 )
 
 require (
